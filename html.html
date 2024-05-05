@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Page</title>
+<link rel="stylesheet" href="cart.html">
+<style>
+/* CSS Styles */
+body {
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(wall2.jpeg);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    text-align: center;
+}
+
+.cart {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.cart-item {
+    margin-bottom: 10px;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>WELCOME TO OUR SHOP </h1>
+    <div class="menu">
+        <div class="menu-item">
+            <h3>APPLE VISION PRO</h3>
+            <p>$300</p>
+            <button class="btn add-to-cart" data-name="APPLE VISION PRO" data-price="10">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h3>AIRPODS</h3>
+            <p>$150</p>
+            <button class="btn add-to-cart" data-name="AIRPODS" data-price="15">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h3>APPLE WATCH</h3>
+            <p>$75</p>
+            <button class="btn add-to-cart" data-name="APPLE WATCH" data-price="5">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h3>IPAD</h3>
+            <p>$100</p>
+            <button class="btn add-to-cart" data-name="IPAD" data-price="7">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h3>APPLE TV 4K</h3>
+            <p>$800</p>
+            <button class="btn add-to-cart" data-name="IPAD" data-price="7">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <h3>HOMEPAD</h3>
+            <p>$200</p>
+            <button class="btn add-to-cart" data-name="IPAD" data-price="7">Add to Cart</button>
+        </div>
+    </div>
+    <div class="cart">
+        <h2>Cart</h2>
+        <div id="cart-items"></div>
+        <p>Total: <span id="cart-total">$0</span></p>
+        <a href="#" class="btn" id="pay">Pay</a>
+    </div>
+    
+</div>
+
+<script>
+// JavaScript
+document.addEventListener("DOMContentLoaded", function() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartItemsDiv = document.getElementById('cart-items');
+    const cartTotalSpan = document.getElementById('cart-total');
+
+    let cartItems = [];
+    let total = 0;
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+
+            cartItems.push({ name, price });
+            total += price;
+
+            renderCart();
+        });
+    });
+
+    function renderCart() {
+        cartItemsDiv.innerHTML = '';
+        cartItems.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('cart-item');
+            div.innerHTML = `<p>${item.name} - $${item.price}</p>`;
+            cartItemsDiv.appendChild(div);
+        });
+        cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+    }
+
+    document.getElementById('pay').addEventListener('click', () => {
+        alert(`Total amount to pay: $${total.toFixed(2)}`);
+    });
+});
+</script>
+</body>
+</html>
